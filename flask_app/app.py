@@ -16,15 +16,15 @@ import datetime
 server = Flask(__name__)
 
 credentials = service_account.Credentials.from_service_account_file(
-    r'slwidgets-eedaccf3f41b.json')
+    r'flask_app/slwidgets-eedaccf3f41b.json')
 project_id = 'slwidgets'
 client = bigquery.Client(credentials= credentials,project=project_id)
 
-@app.route('/')
+@server.route('/')
 def index():
     return "Hello, World!"
 
-@app.route('/big-query/order-convertion-rate/<int:days>', methods=['GET'])
+@server.route('/big-query/order-convertion-rate/<int:days>', methods=['GET'])
 def GetConvertionRate(days):
     print('days ', days)
     sql = """
@@ -52,7 +52,7 @@ def GetConvertionRate(days):
     response.status_code = 201
     return response
 
-@app.route('/big-query/order-convertion-rate-previous-period/<int:days>', methods=['GET'])
+@server.route('/big-query/order-convertion-rate-previous-period/<int:days>', methods=['GET'])
 def GetComparisonConvertionRate(days):
     print('days ', days)
     """List of query browser"""
@@ -101,7 +101,7 @@ def GetComparisonConvertionRate(days):
     response.status_code = 201
     return response
 
-@app.route('/big-query/order-convertion-rate/<int:days>/csv', methods=['GET'])
+@server.route('/big-query/order-convertion-rate/<int:days>/csv', methods=['GET'])
 def GetConvertionRateCSV(days):
     print('days ', days)
     """List of query browser"""
@@ -133,7 +133,7 @@ def GetConvertionRateCSV(days):
     response.headers.set("Content-Disposition", "attachment", filename="convertion_rate.csv")
     return response
 
-@app.route('/big-query/get-user-profile/<int:id>', methods=['GET'])
+@server.route('/big-query/get-user-profile/<int:id>', methods=['GET'])
 def GetUserDetails(id):
     print('profile id ', id)
     """List of query browser"""
@@ -229,7 +229,7 @@ def GetUserDetails(id):
         return response
 
 
-@app.route('/big-query/order-convertion-rate-group-wise/<int:days>', methods=['GET'])
+@server.route('/big-query/order-convertion-rate-group-wise/<int:days>', methods=['GET'])
 def GetConvertionRateGroupBy(days):
     print('days ', days)
     sql = """
@@ -273,7 +273,7 @@ def GetConvertionRateGroupBy(days):
     return response
 
 
-@app.route('/big-query/order-convertion-rate-two-dimention/<int:days>', methods=['GET'])
+@server.route('/big-query/order-convertion-rate-two-dimention/<int:days>', methods=['GET'])
 def GetConvertionRateGroupByDimention(days):
     print('days ', days)
     sql = """
@@ -322,7 +322,7 @@ def GetConvertionRateGroupByDimention(days):
     response.status_code = 201
     return response
 
-@app.route('/big-query/order-convertion-rate-two-new/<int:days>', methods=['GET'])
+@server.route('/big-query/order-convertion-rate-two-new/<int:days>', methods=['GET'])
 def GetConvertionRateGroupByDimentionNew(days):
     print('days ', days)
     sql = """
