@@ -13,7 +13,7 @@ from datetime import datetime
 from io import StringIO
 import datetime
 
-app = Flask(__name__)
+server = Flask(__name__)
 
 credentials = service_account.Credentials.from_service_account_file(
     r'slwidgets-eedaccf3f41b.json')
@@ -370,6 +370,3 @@ def generate(log):
         yield data.getvalue()
         data.seek(0)
         data.truncate(0)
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
